@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${title}"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://getbootstrap.com/docs/5.2/dist/css/bootstrap.min.css">
+    <link href="https://getbootstrap.com/docs/5.2/examples/dashboard/dashboard.css" rel="stylesheet">
+    <style>
+        .sidebar .nav-link {
+            color: #fff;
+        }
+
+        .sidebar .nav-link .feather {
+            color: #fff;
+        }
+
+        .sidebar {
+            top: 2rem;
+        }
+    </style>
+    </head>
+<body>
+
+    <header th:replace="block/header :: header"></header>
+
+    <div class="container-fluid">
+        <div class="row">
+
+            <nav th:replace="block/sidebar :: sidebar"></nav>
+
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1>Книги</h1>
+
+                </div>
+
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                    <div class="col" th:each="el : ${readerBooks}">
+
+                            <div style="width: 100%; margin: auto; background: silver; overflow: hidden; padding-top: 100%; float: left;"></div>
+                            <p class="card-text" th:text="${el.title}"/>
+                            <a th:href="'/reader-books/' + ${el.id}">Подробнее</a><br>
+
+                            <button type="button" class="btn btn-sm btn-outline-success">Взять</button>
+                            <button type="button" class="btn btn-sm btn-outline-success">Забронировать</button>
+                            <button type="button" class="btn btn-sm btn-outline-success">Встать на очередь</button>
+
+<!--                            <small class="text-muted">9 mins</small>-->
+
+
+                    </div>
+                </div>
+
+            </main>
+
+        </div>
+    </div>
+
+    <script src="https://getbootstrap.com/docs/5.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
