@@ -1,21 +1,29 @@
 package com.radpeace.library.controller;
 
 import com.radpeace.library.entity.Book;
+import com.radpeace.library.entity.IssuedBook;
+import com.radpeace.library.entity.Reader;
 import com.radpeace.library.repository.BookRepository;
 import com.radpeace.library.repository.IssuedBookRepository;
+import com.radpeace.library.repository.ReaderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import java.time.LocalDate;
 
 @Controller
 public class ReaderController {
 
-    private int readerId = 1;
+    private int readerId = 1; //так как это задание без авторизации, id'ник укажем 1
 
     @Autowired
     private BookRepository bookRepository;
-
+    @Autowired
+    private ReaderRepository readerRepository;
     @Autowired
     private IssuedBookRepository issuedBookRepository;
 
@@ -30,11 +38,37 @@ public class ReaderController {
         model.addAttribute("readerBooks", readerBooks);
         return "reader-books";
     }
+    @PostMapping("/reader-books/{bookId}/take")
+    public String takeBook(@PathVariable(value = "bookId") int bookId, Model model) {
+        Book book = bookRepository.findById(bookId).orElseThrow();
+        Reader reader = readerRepository.findById(readerId).orElseThrow();
+
+        IssuedBook issuedBook = new IssuedBook();
+        issuedBook.setBookId(book);
+        issuedBook.setReaderId(reader);
+        issuedBook.setDateIssue(LocalDate.now());
+
+        issuedBookRepository.save(issuedBook);
+        return "redirect:/reader-books";
+    }
     @GetMapping("/my-books")
     public String myBooks(Model model) {
-        Iterable<Book> myBooks = issuedBookRepository.findAllByReaderId(readerId);
+        Iterable<IssuedBook> issuedBooks = issuedBookRepository.findAllByReaderId(readerId);
+
+        Iterable<Book> myBooks = bookRepository.findByIssuedBooks(issuedBooks);
         model.addAttribute("myBooks", myBooks);
         return "my-books";
+    }
+    @PostMapping("/my-books/{bookId}/pass")
+    public String passBook(@PathVariable(value = "bookId") int bookId, Model model) {
+        Book book = bookRepository.findById(bookId).orElseThrow();
+        Reader reader = readerRepository.findById(readerId).orElseThrow();
+
+        IssuedBook issuedBook = issuedBookRepository.findByBookId(book);
+        issuedBook.setDateReturn(LocalDate.now());
+
+        issuedBookRepository.save(issuedBook);
+        return "redirect:/my-books";
     }
     @GetMapping("/reserved-books")
     public String reservedbooks(Model model) {

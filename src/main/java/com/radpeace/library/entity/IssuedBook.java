@@ -6,6 +6,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -29,10 +30,10 @@ public class IssuedBook {
     private Book bookId;
 
     @Column(name = "date_issue")
-    private Date dateIssue;
+    private LocalDate dateIssue;
 
     @Column(name = "date_return")
-    private Date dateReturn;
+    private LocalDate dateReturn;
 
     public IssuedBook() {
     }

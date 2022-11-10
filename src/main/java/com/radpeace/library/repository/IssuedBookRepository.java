@@ -11,10 +11,11 @@ import java.util.List;
 @Repository
 public interface IssuedBookRepository extends JpaRepository<IssuedBook, Integer> {
 
-    Reader findByReaderId (int readerId);
+    IssuedBook findByReaderId (Reader readerId);
 
-    Reader findByBookId (int bookId);
+    IssuedBook findByBookId (Book bookId);
 
-    List<Book> findAllByReaderId (int readerId);
+    List<IssuedBook> findAllByReaderId (int readerId);
+
 
 }

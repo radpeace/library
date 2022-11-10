@@ -36,21 +36,16 @@
                 </div>
 
                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                    <div class="col" th:each="el : ${readerBooks}">
+                    <div class="col" th:each="el : ${myBooks}">
 
                             <div style="width: 100%; margin: auto; background: silver; overflow: hidden; padding-top: 100%; float: left;"></div>
                             <p class="card-text" th:text="${el.title}"/>
                             <a th:href="'/reader-books/' + ${el.id}">Подробнее</a><br>
 
-                            <form th:action="'/reader-books/' + ${el.id} + '/take'" method="post">
-                                <button type="submit" class="btn btn-sm btn-outline-success">Взять</button>
+                            <form th:action="'/my-books/' + ${el.id} + '/pass'" method="post">
+                                <button type="submit" class="btn btn-sm btn-outline-success">Сдать</button>
                             </form>
-                            <form action="/reader-books" method="post">
-                                <button type="submit" class="btn btn-sm btn-outline-success">Забронировать</button>
-                            </form>
-                            <form action="/reader-books" method="post">
-                                <button type="submit" class="btn btn-sm btn-outline-success">Встать на очередь</button>
-                            </form>
+
 
 <!--                            <small class="text-muted">9 mins</small>-->
 
