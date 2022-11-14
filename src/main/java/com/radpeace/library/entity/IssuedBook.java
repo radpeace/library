@@ -19,7 +19,7 @@ public class IssuedBook {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     @Column(name = "id")
-    private int id;
+    private Long id;
 
     @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="reader_id")
@@ -38,4 +38,9 @@ public class IssuedBook {
     public IssuedBook() {
     }
 
+    public IssuedBook(Reader readerId, Book bookId, LocalDate dateIssue) {
+        this.readerId = readerId;
+        this.bookId = bookId;
+        this.dateIssue = dateIssue;
+    }
 }

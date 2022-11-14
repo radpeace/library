@@ -11,14 +11,12 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface IssuedBookRepository extends JpaRepository<IssuedBook, Integer> {
+public interface IssuedBookRepository extends JpaRepository<IssuedBook, Long> {
 
-    IssuedBook findByReaderId (Reader readerId);
+    IssuedBook findByBookId (Long bookId);
 
-    IssuedBook findByBookId (Book bookId);
+//    @Query("select ib from IssuedBook ib where ib.readerId = :readerID")
+//    List<IssuedBook> findAllByReaderId (@Param("readerId") Long readerId);
 
-    List<IssuedBook> findAllByReaderId (int readerId);
-
-//    @Query("select ib.bookId from IssuedBook ib where ib.readerId = :readerId")
 
 }
