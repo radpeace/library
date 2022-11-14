@@ -9,4 +9,5 @@ public interface ReaderRepository extends JpaRepository<Reader, Integer> {
 
     Reader findByName (String name);
 
+    Reader findById (int readerId);
 }

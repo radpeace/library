@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Controller
 public class ReaderController {
@@ -41,7 +42,7 @@ public class ReaderController {
     @PostMapping("/reader-books/{bookId}/take")
     public String takeBook(@PathVariable(value = "bookId") int bookId, Model model) {
         Book book = bookRepository.findById(bookId).orElseThrow();
-        Reader reader = readerRepository.findById(readerId).orElseThrow();
+        Reader reader = readerRepository.findById(readerId);
 
         IssuedBook issuedBook = new IssuedBook();
         issuedBook.setBookId(book);
@@ -53,16 +54,18 @@ public class ReaderController {
     }
     @GetMapping("/my-books")
     public String myBooks(Model model) {
-        Iterable<IssuedBook> issuedBooks = issuedBookRepository.findAllByReaderId(readerId);
+//        Reader reader = readerRepository.findById(readerId).orElseThrow();
+        List<IssuedBook> issuedBooks = issuedBookRepository.findAllByReaderId(readerId);
 
-        Iterable<Book> myBooks = bookRepository.findByIssuedBooks(issuedBooks);
+
+        Iterable<Book> myBooks = bookRepository.findMyBooks(readerRepository.findById(readerId));
         model.addAttribute("myBooks", myBooks);
         return "my-books";
     }
     @PostMapping("/my-books/{bookId}/pass")
     public String passBook(@PathVariable(value = "bookId") int bookId, Model model) {
         Book book = bookRepository.findById(bookId).orElseThrow();
-        Reader reader = readerRepository.findById(readerId).orElseThrow();
+        Reader reader = readerRepository.findById(readerId);
 
         IssuedBook issuedBook = issuedBookRepository.findByBookId(book);
         issuedBook.setDateReturn(LocalDate.now());
