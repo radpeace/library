@@ -15,6 +15,6 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
 
     Book findByTitle(String title);
 
-
-    List<Book> findMyBooks(@Param("readerId") Reader readerId);
+//    @Query("SELECT b FROM Book b JOIN IssuedBook ib ON b = ib.bookId WHERE ib.readerId = :readerId")
+    List<Book> findMyBooks(Reader readerId);
 }
