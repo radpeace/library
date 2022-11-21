@@ -42,32 +42,33 @@
                     </div>
                 </div>
 
-                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                    <div class="col" th:each="el : ${readerBooks}">
-
-                            <div style="width: 100%; margin: auto; background: silver; overflow: hidden; padding-top: 100%; float: left;"></div>
-                            <p class="card-text" th:text="${el.title}"/>
-                            <a th:href="'/reader-books/' + ${el.id}" class="btn btn-sm btn-outline-success">Подробнее</a><br>
-
-<!--                            <form th:action="'/reader-books/' + ${el.id} + '/take'" method="post">-->
-<!--                                <button type="submit" class="btn btn-sm btn-outline-success">Взять</button>-->
-<!--                            </form>-->
-                            <form action="/reader-books" method="post">
-                                <button type="submit" class="btn btn-sm btn-outline-success">Забронировать</button>
-                            </form>
-                            <form action="/reader-books" method="post">
-                                <button type="submit" class="btn btn-sm btn-outline-success">Встать на очередь</button>
-                            </form>
-
-<!--                            <small class="text-muted">9 mins</small>-->
-
-
-                    </div>
-                </div>
+                <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Название</th>
+                    <th scope="col">Артикль</th>
+                    <th scope="col">Библиотека</th>
+                    <th scope="col">Редактирование</th>
+                    <th scope="col">Удаление</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="el : ${managerBooks}">
+                    <th scope="row" th:text="${el.id}"></th>
+                    <td th:text="${el.title}"></td>
+                    <td th:text="${el.vendor}"></td>
+                    <td></td>
+                    <td><a th:href="'/manager-books/' + ${el.id} + '/edit'" class="btn btn-sm btn-outline-warning">Редактировать</a><br></td>
+                    <td><a th:href="'/manager-books/' + ${el.id} + '/delete'" class="btn btn-sm btn-outline-danger">Удалить</a><br></td>
+                </tr>
+                </tbody>
+                </table>
 
             </main>
 
         </div>
+
     </div>
 
     <script src="https://getbootstrap.com/docs/5.2/dist/js/bootstrap.bundle.min.js"></script>

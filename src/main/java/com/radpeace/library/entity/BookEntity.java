@@ -1,9 +1,8 @@
 package com.radpeace.library.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.List;
@@ -12,7 +11,7 @@ import java.util.List;
 @Table(name="book")
 @Getter
 @Setter
-public class Book {
+public class BookEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,7 +19,7 @@ public class Book {
     private Long id;
 
     @Column(name = "vendor")
-    private Integer vendor;
+    private String vendor;
 
     @Column(name = "title")
     private String title;
@@ -28,11 +27,12 @@ public class Book {
     @Column(name = "description")
     private String description;
 
+
     @OneToMany(mappedBy = "bookId", cascade = CascadeType.ALL)
     private List<IssuedBook> issuedBooks;
 
     @OneToMany(mappedBy = "genreBookId", cascade = CascadeType.ALL)
-    private List<Genre> genres;
+    private List<GenreEntity> genres;
 
     @OneToMany(mappedBy = "authorBookId", cascade = CascadeType.ALL)
     private List<Author> authors;
@@ -40,6 +40,10 @@ public class Book {
     @OneToMany(mappedBy = "commentBookId", cascade = CascadeType.ALL)
     private List<Comment> comments;
 
-    public Book() {
+    @ManyToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name="library_id")
+    private Library libraryId;
+
+    public BookEntity() {
     }
 }

@@ -4,12 +4,13 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
-@Table(name="author")
+@Table(name="library")
 @Getter
 @Setter
-public class Author {
+public class Library {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,10 +20,12 @@ public class Author {
     @Column(name = "name")
     private String name;
 
-    @ManyToOne(fetch=FetchType.EAGER)
-    @JoinColumn(name="book_id")
-    private BookEntity authorBookId;
+    @Column(name = "address")
+    private String address;
 
-    public Author() {
+    @OneToMany(mappedBy = "libraryId", cascade = CascadeType.ALL)
+    private List<BookEntity> books;
+
+    public Library() {
     }
 }

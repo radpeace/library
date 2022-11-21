@@ -21,7 +21,7 @@ public class Comment {
 
     @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="book_id")
-    private Book commentBookId;
+    private BookEntity commentBookId;
 
     @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="reader_id")

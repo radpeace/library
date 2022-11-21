@@ -2,17 +2,14 @@ package com.radpeace.library.entity;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name="genre")
 @Getter
 @Setter
-public class Genre {
+public class GenreEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,8 +21,8 @@ public class Genre {
 
     @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="book_id")
-    private Book genreBookId;
+    private BookEntity genreBookId;
 
-    public Genre() {
+    public GenreEntity() {
     }
 }

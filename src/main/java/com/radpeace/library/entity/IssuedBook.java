@@ -2,12 +2,9 @@ package com.radpeace.library.entity;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Date;
 
 @Entity
 @Table(name="issued_book")
@@ -27,7 +24,7 @@ public class IssuedBook {
 
     @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="book_id")
-    private Book bookId;
+    private BookEntity bookId;
 
     @Column(name = "date_issue")
     private LocalDate dateIssue;
@@ -38,7 +35,7 @@ public class IssuedBook {
     public IssuedBook() {
     }
 
-    public IssuedBook(Reader readerId, Book bookId, LocalDate dateIssue) {
+    public IssuedBook(Reader readerId, BookEntity bookId, LocalDate dateIssue) {
         this.readerId = readerId;
         this.bookId = bookId;
         this.dateIssue = dateIssue;
