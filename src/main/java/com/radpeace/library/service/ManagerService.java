@@ -11,6 +11,7 @@ import java.util.List;
 
 public interface ManagerService {
 
+//    List<BookEntity> getBooks ();
     List<Book> getBooks ();
     Book getBook (Long bookId) throws BookNotFoundException;
     BookEntity addBook (BookEntity newBook) throws BookAlreadyExistException;

@@ -15,12 +15,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/manager")
 public class ManagerController {
 
     @Autowired
     private ManagerService managerService;
 
-    @GetMapping("/manager/books")
+    @GetMapping("/books")
     public ResponseEntity getBooks() {
         try {
             return ResponseEntity.ok(managerService.getBooks());
@@ -28,7 +29,7 @@ public class ManagerController {
             return ResponseEntity.badRequest().body("Ошибка");
         }
     }
-    @GetMapping("/manager/books/{bookId}")
+    @GetMapping("/books/{bookId}")
     public ResponseEntity getBook(@PathVariable Long bookId) {
         try {
             return ResponseEntity.ok(managerService.getBook(bookId));
@@ -38,7 +39,7 @@ public class ManagerController {
             return ResponseEntity.badRequest().body("Ошибка");
         }
     }
-    @PostMapping("/manager/books/")
+    @PostMapping("/books")
     public ResponseEntity addBook(@RequestBody BookEntity newBook) {
         try {
             managerService.addBook(newBook);
@@ -49,7 +50,7 @@ public class ManagerController {
             return ResponseEntity.badRequest().body("Ошибка");
         }
     }
-    @DeleteMapping("/manager/books/{bookId}")
+    @DeleteMapping("/books/{bookId}")
     public ResponseEntity deleteBook(@PathVariable Long bookId) {
         try {
             managerService.deleteBook(bookId);
@@ -58,7 +59,7 @@ public class ManagerController {
             return ResponseEntity.badRequest().body("Ошибка");
         }
     }
-    @PutMapping("/manager/books/{bookId}")
+    @PutMapping("/books/{bookId}")
     public ResponseEntity updateBook(@PathVariable Long bookId, @RequestBody BookEntity updateBook) {
         try {
             managerService.updateBook(bookId, updateBook);
@@ -67,7 +68,7 @@ public class ManagerController {
             return ResponseEntity.badRequest().body("Ошибка");
         }
     }
-    @GetMapping("/manager/genres")
+    @GetMapping("/genres")
     public ResponseEntity getGenres() {
         try {
             return ResponseEntity.ok(managerService.getGenres());
@@ -75,7 +76,7 @@ public class ManagerController {
             return ResponseEntity.badRequest().body("Ошибка");
         }
     }
-    @PostMapping("/manager/genres")
+    @PostMapping("/genres")
     public ResponseEntity addGenre(@RequestBody GenreEntity newGenre) {
         try {
             managerService.addGenre(newGenre);

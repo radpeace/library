@@ -38,13 +38,14 @@ public class ManagerServiceImpl implements ManagerService {
 
     @Override
     public List<Book> getBooks() {
-        List<BookEntity> books = bookRepository.findAll();
-
-        List<Book> booksModel = books.stream().map(Book::toModel)
+        return bookRepository.findAll().stream().map(Book::toModel)
                 .collect(Collectors.toList());
-
-        return booksModel;
     }
+
+//    @Override
+//    public List<BookEntity> getBooks() {
+//        return bookRepository.findAll();
+//    }
 
     @Override
     public Book getBook(Long bookId) throws BookNotFoundException {
@@ -79,12 +80,11 @@ public class ManagerServiceImpl implements ManagerService {
 
     @Override
     public List<Genre> getGenres() {
-        List<GenreEntity> genres = genreRepository.findAll();
-
-        List<Genre> genresModel = genres.stream().map(Genre::toModel)
+//        List<GenreEntity> genres = genreRepository.findAll();
+//        List<Genre> genresModel = genres.stream().map(Genre::toModel)
+//                .collect(Collectors.toList());
+        return genreRepository.findAll().stream().map(Genre::toModel)
                 .collect(Collectors.toList());
-
-        return genresModel;
     }
 
     @Override

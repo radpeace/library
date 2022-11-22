@@ -27,10 +27,11 @@ public class BookEntity {
     @Column(name = "description")
     private String description;
 
-
+    @JsonIgnore
     @OneToMany(mappedBy = "bookId", cascade = CascadeType.ALL)
     private List<IssuedBook> issuedBooks;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "genreBookId", cascade = CascadeType.ALL)
     private List<GenreEntity> genres;
 

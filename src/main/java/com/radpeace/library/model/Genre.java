@@ -12,15 +12,13 @@ import java.util.List;
 @Setter
 public class Genre {
 
-    private Long id;
     private String title;
-    private BookEntity genreBookId;
+    private Long genreBookId;
 
     public static Genre toModel(GenreEntity entity) {
         Genre genreModel = new Genre();
-        genreModel.setId(entity.getId());
         genreModel.setTitle(entity.getTitle());
-        genreModel.setGenreBookId(entity.getGenreBookId());
+        genreModel.setGenreBookId(entity.getGenreBookId().getId());
         return genreModel;
     }
 
