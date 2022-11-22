@@ -15,6 +15,7 @@ public interface ManagerService {
     List<Book> getBooks ();
     Book getBook (Long bookId) throws BookNotFoundException;
     BookEntity addBook (BookEntity newBook) throws BookAlreadyExistException;
+    BookEntity test (BookEntity newBook) throws BookAlreadyExistException;
     BookEntity updateBook (Long bookId, BookEntity updateBook) throws BookNotFoundException;
     void deleteBook (Long bookId);
     List<Genre> getGenres ();

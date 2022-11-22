@@ -58,7 +58,15 @@ public class ManagerServiceImpl implements ManagerService {
         if (bookRepository.findByVendor(newBook.getVendor()) != null) {
             throw new BookAlreadyExistException("Книга с таким артиклем уже существует");
         }
+
+        newBook.getGenres().forEach(genre -> genre.setGenreBookId(newBook));
         return bookRepository.save(newBook);
+    }
+
+    @Override
+    public BookEntity test (BookEntity newBook) throws BookAlreadyExistException {
+//        newBook.getGenres().forEach(genre -> genre.setGenreBookId(newBook));
+        return newBook;
     }
 
     @Override
