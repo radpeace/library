@@ -19,10 +19,12 @@ public class Author {
     @Column(name = "name")
     private String name;
 
+//    @JsonBackReference
     @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="book_id")
-    private BookEntity authorBookId;
+    private Book authorBookId;
 
     public Author() {
     }
+
 }

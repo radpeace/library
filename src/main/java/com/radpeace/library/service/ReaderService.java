@@ -1,19 +1,19 @@
 package com.radpeace.library.service;
 
-import com.radpeace.library.entity.BookEntity;
+import com.radpeace.library.entity.Book;
 import com.radpeace.library.entity.Reader;
+import com.radpeace.library.exception.NotFoundException;
+import com.radpeace.library.dto.model.BookDto;
 
 import java.util.List;
 
 public interface ReaderService {
 
-    BookEntity findBookById(Long bookId);
-    List<BookEntity> findAllBooks();
-//    void takeBook(Long readerId);
-//    void passBook(Long readerId);
-    List<BookEntity> findMyBooks();
-    List<BookEntity> findReservedBooks();
+    List<BookDto> getBooks();
+    BookDto getBook(Long bookId) throws NotFoundException;
+    List<BookDto> getMyBooks();
+    List<Book> getReservedBooks();
 
-    Reader findReaderById(Long readerId);
+    Reader getReaderById(Long readerId);
 
 }

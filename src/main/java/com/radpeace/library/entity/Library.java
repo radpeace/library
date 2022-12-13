@@ -24,7 +24,7 @@ public class Library {
     private String address;
 
     @OneToMany(mappedBy = "libraryId", cascade = CascadeType.ALL)
-    private List<BookEntity> books;
+    private List<Book> books;
 
     public Library() {
     }

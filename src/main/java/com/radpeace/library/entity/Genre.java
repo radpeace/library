@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Table(name="genre")
 @Getter
 @Setter
-public class GenreEntity {
+public class Genre {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,10 +19,11 @@ public class GenreEntity {
     @Column(name = "title")
     private String title;
 
+//    @JsonBackReference
     @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="book_id")
-    private BookEntity genreBookId;
+    private Book genreBookId;
 
-    public GenreEntity() {
+    public Genre() {
     }
 }

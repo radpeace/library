@@ -1,27 +1,29 @@
 package com.radpeace.library.service;
 
-import com.radpeace.library.entity.BookEntity;
-import com.radpeace.library.entity.GenreEntity;
-import com.radpeace.library.exception.BookAlreadyExistException;
-import com.radpeace.library.exception.BookNotFoundException;
-import com.radpeace.library.model.Book;
-import com.radpeace.library.model.Genre;
+import com.radpeace.library.dto.model.BookDto;
+import com.radpeace.library.entity.Book;
+import com.radpeace.library.entity.IssuedBook;
+import com.radpeace.library.exception.AlreadyExistException;
+import com.radpeace.library.exception.NotFoundException;
+import com.radpeace.library.dto.model.GenreDto;
+import com.radpeace.library.dto.model.IssuedBookDto;
 
 import java.util.List;
 
 public interface ManagerService {
 
-//    List<BookEntity> getBooks ();
-    List<Book> getBooks ();
-    Book getBook (Long bookId) throws BookNotFoundException;
-    BookEntity addBook (BookEntity newBook) throws BookAlreadyExistException;
-    BookEntity test (BookEntity newBook) throws BookAlreadyExistException;
-    BookEntity updateBook (Long bookId, BookEntity updateBook) throws BookNotFoundException;
+//    List<Book> getBooks ();
+    List<BookDto> getBooks ();
+    BookDto getBook (Long bookId) throws NotFoundException;
+    Book addBook (Book newBook) throws AlreadyExistException;
+    Book updateBook (Long bookId, Book updateBook) throws NotFoundException;
     void deleteBook (Long bookId);
-    List<Genre> getGenres ();
-    GenreEntity addGenre (GenreEntity newGenre) throws BookAlreadyExistException;
+    List<GenreDto> getGenres ();
+//    Genre addGenre (Genre newGenre) throws AlreadyExistException;
 //    void editUser (Long userId);
-//    void issueBook (Long readerId, Long bookId);
-//    void takeAwayBook (Long readerId, Long bookId);
+    List<IssuedBookDto> getIssuedBooks ();
+    void issueBook (IssuedBook newIssue) throws AlreadyExistException;
+    void takeAwayBook (Long bookId);
+
 
 }

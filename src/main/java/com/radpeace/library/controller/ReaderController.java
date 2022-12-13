@@ -1,17 +1,39 @@
 package com.radpeace.library.controller;
 
-import com.radpeace.library.entity.BookEntity;
+import com.radpeace.library.exception.NotFoundException;
 import com.radpeace.library.service.ReaderService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/reader")
 public class ReaderController {
 
-//    @Autowired
-//    private ReaderService readerService;
+    @Autowired
+    private ReaderService readerService;
+
+    @GetMapping("/books")
+    public ResponseEntity getBooks() {
+        try {
+            return ResponseEntity.ok(readerService.getBooks());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Ошибка");
+        }
+    }
+    @GetMapping("/books/{bookId}")
+    public ResponseEntity getBook(@PathVariable Long bookId) {
+        try {
+            return ResponseEntity.ok(readerService.getBook(bookId));
+        } catch (NotFoundException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Ошибка");
+        }
+    }
 //
 //    @GetMapping("/")
 //    public String tz(Model model) {
@@ -20,7 +42,7 @@ public class ReaderController {
 //    }
 //    @GetMapping("/reader-books")
 //    public String readerBooks(Model model) {
-//        Iterable<BookEntity> readerBooks = readerService.findAllBooks();
+//        Iterable<Book> readerBooks = readerService.findAllBooks();
 //        model.addAttribute("readerBooks", readerBooks);
 //        return "reader-books";
 //    }
@@ -30,7 +52,7 @@ public class ReaderController {
 //
 //
 //
-//        Iterable<BookEntity> myBooks = readerService.findMyBooks();
+//        Iterable<Book> myBooks = readerService.findMyBooks();
 //        model.addAttribute("myBooks", myBooks);
 //        return "my-books";
 //    }

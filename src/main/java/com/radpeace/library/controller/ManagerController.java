@@ -1,18 +1,13 @@
 package com.radpeace.library.controller;
 
-import com.radpeace.library.entity.BookEntity;
-import com.radpeace.library.entity.GenreEntity;
-import com.radpeace.library.exception.BookAlreadyExistException;
-import com.radpeace.library.exception.BookNotFoundException;
-import com.radpeace.library.model.Book;
+import com.radpeace.library.entity.Book;
+import com.radpeace.library.entity.IssuedBook;
+import com.radpeace.library.exception.AlreadyExistException;
+import com.radpeace.library.exception.NotFoundException;
 import com.radpeace.library.service.ManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/manager")
@@ -33,18 +28,18 @@ public class ManagerController {
     public ResponseEntity getBook(@PathVariable Long bookId) {
         try {
             return ResponseEntity.ok(managerService.getBook(bookId));
-        } catch (BookNotFoundException e) {
+        } catch (NotFoundException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Ошибка");
         }
     }
     @PostMapping("/books")
-    public ResponseEntity addBook(@RequestBody BookEntity newBook) {
+    public ResponseEntity addBook(@RequestBody Book newBook) {
         try {
             managerService.addBook(newBook);
             return ResponseEntity.ok("Книга добавлена");
-        } catch (BookAlreadyExistException e) {
+        } catch (AlreadyExistException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Ошибка");
@@ -60,7 +55,7 @@ public class ManagerController {
         }
     }
     @PutMapping("/books/{bookId}")
-    public ResponseEntity updateBook(@PathVariable Long bookId, @RequestBody BookEntity updateBook) {
+    public ResponseEntity updateBook(@PathVariable Long bookId, @RequestBody Book updateBook) {
         try {
             managerService.updateBook(bookId, updateBook);
             return ResponseEntity.ok("Книга с идентификатором " + bookId + " обновлена");
@@ -76,17 +71,58 @@ public class ManagerController {
             return ResponseEntity.badRequest().body("Ошибка");
         }
     }
-    @PostMapping("/genres")
-    public ResponseEntity addGenre(@RequestBody GenreEntity newGenre) {
+
+    @GetMapping("/issued-books")
+    public ResponseEntity getIssuedBooks() {
         try {
-            managerService.addGenre(newGenre);
-            return ResponseEntity.ok("Жанр добавлен");
-        } catch (BookAlreadyExistException e) {
+            return ResponseEntity.ok(managerService.getIssuedBooks());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Ошибка");
+        }
+    }
+
+    @PostMapping("/issue")
+    public ResponseEntity issueBook(@RequestBody IssuedBook newIssue) {
+        try {
+            managerService.issueBook(newIssue);
+            return ResponseEntity.ok("Книга успешно выдана");
+        } catch (AlreadyExistException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Ошибка");
         }
     }
+
+    @PutMapping("/takeaway/")
+    public ResponseEntity takeAwayBook(@RequestParam Long bookId) {
+        try {
+            managerService.takeAwayBook(bookId);
+            return ResponseEntity.ok("Книга успешно сдана");
+//        } catch (NotFoundException e) {
+//            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Ошибка");
+        }
+    }
+
+//    @GetMapping("/takeaway/")
+//    public ResponseEntity takeAwayBook(@RequestParam Long bookId) {
+//        try {
+//
+//            return ResponseEntity.ok(managerService.takeAwayBook(bookId));
+////        } catch (NotFoundException e) {
+////            return ResponseEntity.badRequest().body(e.getMessage());
+//        } catch (Exception e) {
+//            return ResponseEntity.badRequest().body("Ошибка");
+//        }
+//    }
+
+
+
+
+
+
+
 
 
 

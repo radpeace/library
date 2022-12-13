@@ -29,8 +29,8 @@ public class Reader {
     @Column(name = "phone")
     private String phone;
 
-    @OneToMany(mappedBy = "readerId", cascade = CascadeType.ALL)
-    private List<IssuedBook> issuedBooks;
+//    @OneToMany(mappedBy = "readerId", cascade = CascadeType.ALL)
+//    private List<IssuedBook> issuedBooks;
 
     @OneToMany(mappedBy = "commentReaderId", cascade = CascadeType.ALL)
     private List<Comment> comments;

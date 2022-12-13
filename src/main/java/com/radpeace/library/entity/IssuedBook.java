@@ -18,16 +18,21 @@ public class IssuedBook {
     @Column(name = "id")
     private Long id;
 
+//    @JsonBackReference
     @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="reader_id")
     private Reader readerId;
 
+//    @JsonBackReference
     @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="book_id")
-    private BookEntity bookId;
+    private Book bookId;
 
     @Column(name = "date_issue")
     private LocalDate dateIssue;
+
+    @Column(name = "required_date_return")
+    private LocalDate requiredDateReturn;
 
     @Column(name = "date_return")
     private LocalDate dateReturn;
@@ -35,9 +40,4 @@ public class IssuedBook {
     public IssuedBook() {
     }
 
-    public IssuedBook(Reader readerId, BookEntity bookId, LocalDate dateIssue) {
-        this.readerId = readerId;
-        this.bookId = bookId;
-        this.dateIssue = dateIssue;
-    }
 }
