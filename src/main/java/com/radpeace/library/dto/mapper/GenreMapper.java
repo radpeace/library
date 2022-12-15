@@ -8,7 +8,7 @@ import lombok.Setter;
 public class GenreMapper {
     public static GenreDto toGenreDto(Genre genre) {
         return new GenreDto()
-                .setTitle(genre.getTitle())
-                .setGenreBookId(genre.getGenreBookId().getId());
+                .setTitle(genre.getTitle());
+//                .setGenreBookId(genre.getGenreBookId().getId());
     }
 }

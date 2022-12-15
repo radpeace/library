@@ -1,13 +1,17 @@
 package com.radpeace.library.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import lombok.experimental.Accessors;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
-@Table(name="book")
+@Table(name = "book")
+@NoArgsConstructor
+@Accessors(chain = true)
 @Getter
 @Setter
 public class Book {
@@ -30,24 +34,50 @@ public class Book {
 //    private List<IssuedBook> issuedBooks;
 
 //    @JsonManagedReference
-    @OneToMany(mappedBy = "genreBookId", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Genre> genres;
+//    @OneToMany(mappedBy = "genreBookId", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<Genre> genres;
 
-//    @JsonManagedReference
-    @OneToMany(mappedBy = "authorBookId", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Author> authors;
+    @JoinTable(
+            name = "book_authors",
+            joinColumns = @JoinColumn(name = "book_id"),
+            inverseJoinColumns = @JoinColumn(name = "author_id"))
+    @ManyToMany/*(cascade = {CascadeType.PERSIST, CascadeType.MERGE})*/
+    private Set<Author> authors = new HashSet<>();
 
-//    @JsonManagedReference
+    @JoinTable(
+            name = "book_genres",
+            joinColumns = @JoinColumn(name = "book_id"),
+            inverseJoinColumns = @JoinColumn(name = "genre_id"))
+    @ManyToMany/*(cascade = {CascadeType.PERSIST, CascadeType.MERGE})*/
+    private Set<Genre> genres = new HashSet<>();
+
+    //    @JsonManagedReference
     @OneToMany(mappedBy = "commentBookId", cascade = CascadeType.ALL)
     private List<Comment> comments;
 
-    @ManyToOne(fetch=FetchType.EAGER)
-    @JoinColumn(name="library_id")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "library_id")
     private Library libraryId;
 
-    public Book() {
+    public void addAuthor(Author author) {
+        authors.add(author);
+        author.getBooks().add(this);
     }
 
+    public void removeAuthor(Author author) {
+        authors.remove(author);
+        author.getBooks().remove(this);
+    }
+
+    public void addGenre(Genre genre) {
+        genres.add(genre);
+        genre.getBooks().add(this);
+    }
+
+    public void removeGenre(Genre genre) {
+        genres.remove(genre);
+        genre.getBooks().remove(this);
+    }
 //    public void addGenres(List<Genre> genres) {
 //        genres.addAll(genres);
 //        genres.forEach(genre -> genre.setGenreBookId(this));

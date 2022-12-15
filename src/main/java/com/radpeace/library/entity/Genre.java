@@ -1,12 +1,16 @@
 package com.radpeace.library.entity;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name="genre")
+@NoArgsConstructor
 @Getter
 @Setter
 public class Genre {
@@ -19,11 +23,7 @@ public class Genre {
     @Column(name = "title")
     private String title;
 
-//    @JsonBackReference
-    @ManyToOne(fetch=FetchType.EAGER)
-    @JoinColumn(name="book_id")
-    private Book genreBookId;
+    @ManyToMany(mappedBy = "genres")
+    private Set<Book> books = new HashSet<>();
 
-    public Genre() {
-    }
 }

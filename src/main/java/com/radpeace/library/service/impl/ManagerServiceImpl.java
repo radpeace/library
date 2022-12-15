@@ -16,6 +16,7 @@ import com.radpeace.library.repository.GenreRepository;
 import com.radpeace.library.repository.IssuedBookRepository;
 import com.radpeace.library.repository.ReaderRepository;
 import com.radpeace.library.service.ManagerService;
+import lombok.Builder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -59,8 +60,6 @@ public class ManagerServiceImpl implements ManagerService {
         if (bookRepository.findByVendor(newBook.getVendor()) != null) {
             throw new AlreadyExistException("Книга с таким артиклем уже существует");
         }
-        newBook.getGenres().forEach(genre -> genre.setGenreBookId(newBook));
-        newBook.getAuthors().forEach(author -> author.setAuthorBookId(newBook));
         return bookRepository.save(newBook);
     }
 
@@ -78,11 +77,16 @@ public class ManagerServiceImpl implements ManagerService {
                     book.setDescription(updateBook.getDescription());
 
                     book.getGenres().clear();
-                    updateBook.getGenres().forEach(g -> g.setGenreBookId(book));
-                    book.getGenres().addAll(updateBook.getGenres());
+                    updateBook.getGenres().forEach(genre -> book.addGenre(genre));
                     book.getAuthors().clear();
-                    updateBook.getAuthors().forEach(g -> g.setAuthorBookId(book));
-                    book.getAuthors().addAll(updateBook.getAuthors());
+                    updateBook.getAuthors().forEach(author -> book.addAuthor(author));
+
+//                    book.getGenres().clear();
+//                    updateBook.getGenres().forEach(g -> g.setGenreBookId(book));
+//                    book.getGenres().addAll(updateBook.getGenres());
+//                    book.getAuthors().clear();
+//                    updateBook.getAuthors().forEach(g -> g.setAuthorBookId(book));
+//                    book.getAuthors().addAll(updateBook.getAuthors());
 
                     return bookRepository.save(book);
                 })

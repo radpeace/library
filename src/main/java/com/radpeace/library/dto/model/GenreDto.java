@@ -12,5 +12,5 @@ import lombok.experimental.Accessors;
 @NoArgsConstructor
 public class GenreDto {
     private String title;
-    private Long genreBookId;
+//    private Long genreBookId;
 }
