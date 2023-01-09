@@ -11,6 +11,7 @@ import lombok.experimental.Accessors;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -20,7 +21,7 @@ public class IssuedBookDto {
     private Long id;
     private ReaderDto readerId;
     private BookDtoForIssue bookId;
-    private LocalDate dateIssue;
-    private LocalDate requiredDateReturn;
-    private LocalDate dateReturn;
+    private LocalDateTime dateIssue;
+    private LocalDateTime requiredDateReturn;
+    private LocalDateTime dateReturn;
 }

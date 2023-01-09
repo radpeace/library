@@ -3,6 +3,8 @@ package com.radpeace.library.dto.mapper;
 import com.radpeace.library.dto.model.IssuedBookDto;
 import com.radpeace.library.entity.IssuedBook;
 
+import java.time.LocalTime;
+
 public class IssuedBookMapper {
     public static IssuedBookDto toIssuedBookDto (IssuedBook issuedBook) {
         return new IssuedBookDto()

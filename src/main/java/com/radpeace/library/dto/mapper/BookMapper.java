@@ -10,9 +10,12 @@ public class BookMapper {
     public static BookDto toBookDto (Book book) {
         return new BookDto()
                 .setId(book.getId())
-                .setVendor(book.getVendor())
+                .setIsbn(book.getIsbn())
                 .setTitle(book.getTitle())
                 .setDescription(book.getDescription())
+                .setCover(book.getCover())
+                .setFile(book.getFile())
+                .setBookType(TypeMapper.toTypeDto(book.getBookType()))
                 .setGenres(book.getGenres().stream().map(GenreMapper::toGenreDto)
                         .collect(Collectors.toList()))
                 .setAuthors(book.getAuthors().stream().map(AuthorMapper::toAuthorDto)
@@ -22,7 +25,7 @@ public class BookMapper {
 
     public static BookDtoForIssue toBookDtoForIssuedBook (Book book) {
         return new BookDtoForIssue()
-                .setVendor(book.getVendor())
+                .setIsbn(book.getIsbn())
                 .setTitle(book.getTitle())
                 .setLibraryId(LibraryMapper.toLibraryDto(book.getLibraryId()));
     }

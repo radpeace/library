@@ -21,14 +21,24 @@ public class Book {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "vendor")
-    private String vendor;
+    @Column(name = "isbn")
+    private String isbn;
 
     @Column(name = "title")
     private String title;
 
     @Column(name = "description")
     private String description;
+
+    @Column(name = "cover")
+    private String cover;
+
+    @Column(name = "file")
+    private String file;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "book_type")
+    private Type bookType;
 
 //    @OneToMany(mappedBy = "bookId", cascade = CascadeType.ALL)
 //    private List<IssuedBook> issuedBooks;

@@ -1,5 +1,6 @@
 package com.radpeace.library.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
 

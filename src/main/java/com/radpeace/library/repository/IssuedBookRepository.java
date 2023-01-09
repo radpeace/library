@@ -15,6 +15,7 @@ public interface IssuedBookRepository extends JpaRepository<IssuedBook, Long> {
 //    List<IssuedBook> findAllByReaderId (@Param("readerId") Long readerId);
 
     IssuedBook findByBookId (Book bookId);
+    IssuedBook findTopByBookIdOrderByIdDesc (Book bookId);
     IssuedBook findByReaderId (Reader readerId);
 
 
